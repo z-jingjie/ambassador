@@ -658,7 +658,7 @@ spec:
     email: julian@example.com
   previewUrl:
     enabled: true
-    type: Path
+    type: path
 ```
 
 **Note**: If you already had an active Edge Control Daemon connection to the cluster, you must reconnect to the cluster for the Edge Control Daemon to detect the change to the Host resource. This limitation will be removed in the future.
