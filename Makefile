@@ -99,47 +99,47 @@ sync: python/ambassador/VERSION.py
 clean: _makefile_clean
 clobber: _makefile_clobber
 _makefile_clean:
-    rm -f python/ambassador/VERSION.py
+	rm -f python/ambassador/VERSION.py
 _makefile_clobber:
-    rm -rf bin_*/
+	rm -rf bin_*/
 .PHONY: _makefile_clean _makefile_clobber
 
 generate: ## Update generated sources that get committed to git
 generate: pkg/api/kat/echo.pb.go
 generate-clean: ## Delete generated sources that get committed to git (implies `make clobber`)
 generate-clean: clobber
-    rm -rf pkg/api
+	rm -rf pkg/api
 .PHONY: generate generate-clean
 
 base-%.docker.stamp: docker/base-%/Dockerfile $(var.)BASE_IMAGE.%
-    @PS4=; set -ex; { \
-        if ! docker run --rm --entrypoint=true $(BASE_IMAGE.$*); then \
-            if [ -z '$(YES_I_AM_UPDATING_THE_BASE_IMAGES)' ]; then \
-                { set +x; } &>/dev/null; \
-                echo 'error: failed to pull $(BASE_IMAGE.$*), but $$YES_I_AM_UPDATING_THE_BASE_IMAGES is not set'; \
-                echo '       If you are trying to update the base images, then set that variable to a non-empty value.'; \
-                echo '       If you are not trying to update the base images, then check your network connection and Docker credentials.'; \
-                exit 1; \
-            fi; \
-            docker build $(DOCKER_OPTS) $($@.DOCKER_OPTS) -t $(BASE_IMAGE.$*) -f $< $(or $($@.DOCKER_DIR),.); \
-        fi; \
-    }
-    docker image inspect $(BASE_IMAGE.$*) --format='{{.Id}}' > $@
+	@PS4=; set -ex; { \
+	    if ! docker run --rm --entrypoint=true $(BASE_IMAGE.$*); then \
+	        if [ -z '$(YES_I_AM_UPDATING_THE_BASE_IMAGES)' ]; then \
+	            { set +x; } &>/dev/null; \
+	            echo 'error: failed to pull $(BASE_IMAGE.$*), but $$YES_I_AM_UPDATING_THE_BASE_IMAGES is not set'; \
+	            echo '       If you are trying to update the base images, then set that variable to a non-empty value.'; \
+	            echo '       If you are not trying to update the base images, then check your network connection and Docker credentials.'; \
+	            exit 1; \
+	        fi; \
+	        docker build $(DOCKER_OPTS) $($@.DOCKER_OPTS) -t $(BASE_IMAGE.$*) -f $< $(or $($@.DOCKER_DIR),.); \
+	    fi; \
+	}
+	docker image inspect $(BASE_IMAGE.$*) --format='{{.Id}}' > $@
 
 test-%.docker.stamp: docker/test-%/Dockerfile FORCE
-    docker build --quiet --iidfile=$@ $(<D)
+	docker build --quiet --iidfile=$@ $(<D)
 test-auth-tls.docker.stamp: docker/test-auth/Dockerfile FORCE
-    docker build --quiet --build-arg TLS=--tls --iidfile=$@ $(<D)
+	docker build --quiet --build-arg TLS=--tls --iidfile=$@ $(<D)
 
 update-base: ## Run this whenever the base images (ex Envoy, ./docker/base-*/*) change
-    $(MAKE) $(addsuffix .docker.tag.base,$(images.base))
-    $(MAKE) generate
-    $(MAKE) $(addsuffix .docker.push.base,$(images.base))
+	$(MAKE) $(addsuffix .docker.tag.base,$(images.base))
+	$(MAKE) generate
+	$(MAKE) $(addsuffix .docker.push.base,$(images.base))
 .PHONY: update-base
 
 export-vars:
-    @echo "export BASE_DOCKER_REPO='$(BASE_DOCKER_REPO)'"
-    @echo "export RELEASE_DOCKER_REPO='$(RELEASE_DOCKER_REPO)'"
+	@echo "export BASE_DOCKER_REPO='$(BASE_DOCKER_REPO)'"
+	@echo "export RELEASE_DOCKER_REPO='$(RELEASE_DOCKER_REPO)'"
 .PHONY: export-vars
 
 # Configure GNU Make itself
