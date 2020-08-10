@@ -56,13 +56,14 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local
 # build it locally -- just using pip won't work.
  
 # 这里要替换掉原有的 AMD64 架构包
-# https://dl.google.com/go/go1.13.linux-amd64.tar.gz 替换为 https://golang.org/dl/go1.13.linux-arm64.tar.gz
-# https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl 替换为 https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/arm64/kubectl
+# https://dl.google.com/go/go1.13.linux-amd64.tar.gz 替换为国内镜像 https://gomirrors.org/dl/go/go1.13.linux-arm64.tar.gz
+# https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl 替换为国内镜像 https://storage.googleapis.com.cnpmjs.org/kubernetes-release/release/v1.16.0/bin/linux/arm64/kubectl
+# bdec615287163fa53b315f9d0481da3900df4063b0a41c3a412077fe765ee6c2
 RUN apk --no-cache add bash curl jq rsync python3 python3-dev build-base libffi-dev openssl-dev sudo \
                        iptables docker openssh-client libcap libcap-dev yaml-dev cython git && \
     pip3 install -U pip && \
-    curl --fail https://golang.org/dl/go1.13.linux-arm64.tar.gz | tar -C /usr/local -xzf - && \
-    curl --fail -L https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/arm64/kubectl -o /usr/bin/kubectl && \
+    curl --fail https://gomirrors.org/dl/go/go1.13.linux-arm64.tar.gz | tar -C /usr/local -xzf - && \
+    curl --fail -L https://storage.googleapis.com.cnpmjs.org/kubernetes-release/release/v1.16.0/bin/linux/arm64/kubectl -o /usr/bin/kubectl && \
     chmod a+x /usr/bin/kubectl && \
     ln -s /usr/bin/python3 /usr/bin/python
  
