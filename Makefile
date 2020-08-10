@@ -55,7 +55,8 @@ docker.tag.base       = $(error The 'base' tag is only valid for the 'base-envoy
 ambassador-release.docker.tag.release:    docker.tag.release = $(RELEASE_DOCKER_REPO):$(RELEASE_VERSION)
 ambassador-release-rc.docker.tag.release: docker.tag.release = $(RELEASE_DOCKER_REPO):$(RELEASE_VERSION) $(RELEASE_DOCKER_REPO):$(BUILD_VERSION)-rc-latest
 ambassador-release-ea.docker.tag.release: docker.tag.release = $(RELEASE_DOCKER_REPO):$(RELEASE_VERSION)
-BASE_IMAGE.envoy = $(BASE_DOCKER_REPO):envoy-$(BASE_VERSION.envoy)
+# BASE_IMAGE.envoy = $(BASE_DOCKER_REPO):envoy-$(BASE_VERSION.envoy)
+BASE_IMAGE.envoy = $(if $(IS_PRIVATE),$(BASE_DOCKER_REPO):envoy-$(BASE_VERSION.envoy),$(BASE_DOCKER_REPO):v1.15.0-arm64)
 envoy-base.docker.tag.base:               docker.tag.base       = $(BASE_IMAGE.envoy)
 
 # We'll set REGISTRY_ERR in builder.mk
