@@ -36,8 +36,8 @@ IS_PRIVATE ?= $(findstring private,$(_git_remote_urls))
 # RELEASE_DOCKER_REPO ?= quay.io/datawire/ambassador
 # BASE_DOCKER_REPO ?= quay.io/datawire/ambassador-base
 # DEV_DOCKER_REPO ?= zjingjie/dev
-RELEASE_DOCKER_REPO ?= quay.io/datawire/ambassador$(if $(IS_PRIVATE),-private)
-BASE_DOCKER_REPO    ?= quay.io/datawire/ambassador-base$(if $(IS_PRIVATE),-private)
+RELEASE_DOCKER_REPO ?= zjingjie/ambassador$(if $(IS_PRIVATE),-private)
+BASE_DOCKER_REPO    ?= zjingjie/envoy$(if $(IS_PRIVATE),-private)
 DEV_DOCKER_REPO     ?= $(DEV_REGISTRY)/dev
 
 DOCKER_OPTS ?=

@@ -5,6 +5,9 @@ include $(topsrcdir)/build-aux/prelude.mk
 
 YES_I_AM_OK_WITH_COMPILING_ENVOY ?=
 
+# ARG envoy="quay.io/datawire/ambassador-base:envoy-7.d17d947caef13f1bdd235c3fccff77814883bb46.opt"
+# ARG envoy="zjingjie/envoy:v1.15.0-arm64"
+
 # IF YOU MESS WITH ANY OF THESE VALUES, YOU MUST RUN `make update-base`.
 	_git_remote_urls := $(shell git remote | xargs -n1 git remote get-url --all)
 	IS_PRIVATE ?= $(findstring private,$(_git_remote_urls))
