@@ -9,7 +9,7 @@ script:
 
 before_deploy:
 - mkdir -p ambex-s3/ambex/${TRAVIS_TAG}/
-- cp bin_linux_amd64/ambex ambex-s3/ambex/${TRAVIS_TAG}/ambex
+- cp bin_linux_arm64/ambex ambex-s3/ambex/${TRAVIS_TAG}/ambex
 
 deploy:
   provider: s3

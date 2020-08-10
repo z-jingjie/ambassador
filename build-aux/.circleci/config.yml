@@ -7,7 +7,7 @@ executors:
       image: "ubuntu-1604:201903-01"
     environment:
       build_aux_expected_GOHOSTOS: "linux"
-      build_aux_expected_GOHOSTARCH: "amd64"
+      build_aux_expected_GOHOSTARCH: "arm64"
       build_aux_expected_FLOCK: "/usr/bin/flock"
 
   "vm-macos-10-13":
@@ -58,7 +58,7 @@ commands:
       - run:
           name: "Install Go"
           command: |
-            curl https://dl.google.com/go/go<< parameters.version >>.$(uname -s | tr A-Z a-z)-amd64.tar.gz -o /tmp/go.tar.gz
+            curl https://dl.google.com/go/go<< parameters.version >>.$(uname -s | tr A-Z a-z)-arm64.tar.gz -o /tmp/go.tar.gz
             tar -C /tmp -xzf /tmp/go.tar.gz
             echo 'export PATH=/tmp/go/bin:$PATH' >> "$BASH_ENV"
             if [ -z "$(/tmp/go/bin/go env GOPROXY)" ]; then

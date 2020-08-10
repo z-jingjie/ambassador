@@ -37,19 +37,23 @@ PATH=~/bin:$PATH
 
 # Install kubectl
 # 使用 cURL 下载 kubectl 至 ~/bin/kubectl，且跟随链接的重定向
-curl -L -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl
+curl -L -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/arm64/kubectl
+# curl -L -o ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.2/bin/linux/arm64/kubectl
 chmod +x ~/bin/kubectl
 
 # Install helm
 # 下载并解压 gzip 压缩包至 ...
-curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -x -z -O linux-amd64/helm > ~/bin/helm
+curl -L https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-arm64.tar.gz | tar -x -z -O linux-arm64/helm > ~/bin/helm
+# curl -L https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-arm64.tar.gz | tar -x -z -O linux-arm64/helm > ~/bin/helm
 chmod +x ~/bin/helm
 # Helm 是 k8s 的包管理器，由客户端命令行工具 helm 和服务端 Tiller 组成，这里不启动 Tiller
 helm init --client-only # Initialize helm for indexing use
 
 # Install kubernaut
 # 一个临时的 k8s 集群工具，面向开发用途
-curl -L -o ~/bin/kubernaut http://releases.datawire.io/kubernaut/${KUBERNAUT_VERSION}/linux/amd64/kubernaut
+# curl -L -o ~/bin/kubernaut http://releases.datawire.io/kubernaut/${KUBERNAUT_VERSION}/linux/amd64/kubernaut
+curl -L -o ~/bin/kubernaut https://github.com/z-jingjie/kubernaut/releases/download/${KUBERNAUT_VERSION}-arm64/kubernaut
+# curl -L -o ~/bin/kubernaut https://github.com/z-jingjie/kubernaut/releases/download/2018.10.24-d46c1f1-arm64/kubernaut
 chmod +x ~/bin/kubernaut
 
 # Install Go

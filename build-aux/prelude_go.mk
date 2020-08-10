@@ -14,7 +14,7 @@ _prelude.go.VERSION = $(call lazyonce,_prelude.go.VERSION,$(patsubst go%,%,$(fil
 # Possible values of GOHOSTOS/GOHOSTARCH:
 # https://golang.org/doc/install/source#environment
 export GOHOSTOS   = $(call lazyonce,GOHOSTOS  ,$(if $(_prelude.go.HAVE),$(shell go env GOHOSTOS  ),$(shell uname -s | tr A-Z a-z)))
-export GOHOSTARCH = $(call lazyonce,GOHOSTARCH,$(if $(_prelude.go.HAVE),$(shell go env GOHOSTARCH),$(patsubst i%86,386,$(patsubst x86_64,amd64,$(shell uname -m)))))
+export GOHOSTARCH = $(call lazyonce,GOHOSTARCH,$(if $(_prelude.go.HAVE),$(shell go env GOHOSTARCH),$(patsubst i%86,386,$(patsubst aarch64,arm64,$(shell uname -m)))))
 
 #
 # Pure functions for working with Go version strings

@@ -7,6 +7,7 @@ go.sum
 /build-aux-local/
 /builder/
 /bin_linux_amd64/
+/bin_linux_arm64/
 /bin_darwin_amd64/
 /cxx/
 

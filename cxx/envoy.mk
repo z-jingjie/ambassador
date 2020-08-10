@@ -98,7 +98,7 @@ ENVOY_SYNC_DOCKER_TO_HOST = rsync -Pav --delete --blocking-io -e "docker exec -i
 ENVOY_BASH.cmd = bash -c 'PS4=; set -ex; $(ENVOY_SYNC_HOST_TO_DOCKER); trap '\''$(ENVOY_SYNC_DOCKER_TO_HOST)'\'' EXIT; '$(call quote.shell,$1)
 ENVOY_BASH.deps = $(srcdir)/envoy-build-container.txt
 
-$(topsrcdir)/bin_linux_amd64/envoy-static: $(ENVOY_BASH.deps) FORCE
+$(topsrcdir)/bin_linux_arm64/envoy-static: $(ENVOY_BASH.deps) FORCE
 	mkdir -p $(@D)
 	@PS4=; set -ex; { \
 	    if docker run --rm --entrypoint=true $(BASE_IMAGE.envoy); then \
@@ -151,8 +151,8 @@ generate: api/envoy
 api/envoy: $(srcdir)/envoy
 	rsync --recursive --delete --delete-excluded --prune-empty-dirs --include='*/' --include='*.proto' --exclude='*' $</api/envoy/ $@
 
-update-base: $(topsrcdir)/bin_linux_amd64/envoy-static-stripped
-	cp --force $(topsrcdir)/bin_linux_amd64/envoy-static-stripped $(srcdir)/envoy-static
+update-base: $(topsrcdir)/bin_linux_arm64/envoy-static-stripped
+	cp --force $(topsrcdir)/bin_linux_arm64/envoy-static-stripped $(srcdir)/envoy-static
 	docker build -f $(topsrcdir)/docker/base-envoy/Dockerfile $(srcdir) -t $(ENVOY_DOCKER_TAG)
 	$(MAKE) generate
 	docker push $(ENVOY_DOCKER_TAG)

@@ -1,4 +1,4 @@
-go.PLATFORMS    = linux_amd64 darwin_amd64
+go.PLATFORMS    = linux_arm64 linux_amd64 darwin_amd64
 export CGO_ENABLED = 0
 
 include ../../build-aux/go-mod.mk
@@ -20,7 +20,7 @@ image: bootstrap_image.docker
 .PHONY: image
 
 bootstrap_image.docker: bootstrap_image/ambex
-bootstrap_image/%: bin_linux_amd64/%
+bootstrap_image/%: bin_linux_arm64/%
 	cp $< $@
 
 run: ## ???

@@ -8,5 +8,8 @@
 !watt
 !kubestatus
 !bin_linux_amd64/
+!bin_linux_arm64/
 bin_linux_amd64/.go-build/
+bin_linux_arm64/.go-build/
 bin_linux_amd64/*-static
+bin_linux_arm64/*-static

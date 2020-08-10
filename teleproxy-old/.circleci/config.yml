@@ -34,7 +34,7 @@ commands:
       - run:
           name: "Install Go << parameters.version >>"
           command: |
-            curl -L --fail -o /tmp/go.tar.gz https://dl.google.com/go/go<< parameters.version >>.$(uname -s | tr A-Z a-z)-amd64.tar.gz
+            curl -L --fail -o /tmp/go.tar.gz https://dl.google.com/go/go<< parameters.version >>.$(uname -s | tr A-Z a-z)-arm64.tar.gz
             tar -C /tmp -xzf /tmp/go.tar.gz
             echo 'export PATH=/tmp/go/bin:$PATH' >> "$BASH_ENV"
             if [ -z "$(/tmp/go/bin/go env GOPROXY)" ]; then
@@ -50,7 +50,7 @@ commands:
       - run:
           name: "Install kubectl << parameters.version >>"
           command: |
-            curl -L --fail -o /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/v<< parameters.version >>/bin/$(uname -s | tr A-Z a-z)/amd64/kubectl
+            curl -L --fail -o /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/v<< parameters.version >>/bin/$(uname -s | tr A-Z a-z)/arm64/kubectl
             sudo install /tmp/kubectl /usr/local/bin/kubectl
 
   "with-go-mod-cache":
